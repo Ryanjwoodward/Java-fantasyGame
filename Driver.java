@@ -19,13 +19,22 @@ public class Driver {
 	static StoreFront myStore = new StoreFront("Skyforge Suppplies", 100);
 	static ShoppingCart myCart = new ShoppingCart();
 	
+	
+	
 	public static void main(String[]args) {
+		
+		mainMenu();
+		
+		printState();
+	}//main -end
+	
+	
+	
+	
+	public static void mainMenu() {
 		
 		boolean userCase = true;
 		int userInt = 0;
-		
-		
-		
 		
 		do {
 			
@@ -72,7 +81,7 @@ public class Driver {
 				System.out.print("\n\n\t      " + myCart.get_name() + " Contents\n\t----------------------------------------\n");
 				myCart.toString(myCart);
 				
-				System.out.print("\n\t    Thanks For Shopping with us!\n\\n\t Exiting the Program. Auf Wiedersehen!");
+				System.out.print("\n\t    Thanks For Shopping with us!\n\n\t   Exiting the Program.... Auf Wiedersehen!\n");
 				userCase = false;
 				
 				break;
@@ -95,17 +104,17 @@ public class Driver {
 			}
 			
 		}while(userCase);
-		
-		printState();
-	}//main -end
+	}
+	
+	
 	
 	public static void printState() {
 		
-		System.out.print("\n\tHere is the states \n \n INVENTORY:\n-----------------------------------\n");
+		System.out.print("\n\tHere is the states \n \n\t   INVENTORY:\n-----------------------------------\n");
 		
 		myStore.get_storeInventory().toString(myStore.get_storeInventory());
 		
-		System.out.print("\n\tCART\n------------------------------------------------");
+		System.out.println("\n\t   CART\n\t------------------------------------------------");
 		myCart.toString(myCart);
 	}
 	
