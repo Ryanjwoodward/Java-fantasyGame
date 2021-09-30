@@ -1,11 +1,15 @@
-//Author: Ryan Woodward
-//Date: 9-20-2021
-//Class: CST-239
-
 //Notes
-//1.) add an ammo capacity attribute for weapons that require resource input.
-
+//1.) adjust range to be the mid,short,long and type to be the variety such as gun, sword, etc.
 package store;
+
+/**
+ * @author Ryan Woodward
+ *
+ * Date: 9/20/2021 Edited 9-27-2021
+ * Class: CST-239
+ * Description: Weapon class is a child class to the SalableProduct. This adds weapon qualities to the product. 
+ */
+
 
 public class Weapon extends SalableProduct{
 	
@@ -16,7 +20,9 @@ public class Weapon extends SalableProduct{
 		
 		
 		
-		
+		/**
+		 * Default constructor initializes attributes with super() and default values.
+		 */
 		public Weapon() {
 			super();
 			this._type = "blank";
@@ -25,6 +31,22 @@ public class Weapon extends SalableProduct{
 			this._levelRequirement = 0;
 		}
 		
+		
+		/**
+		 * 
+		 * @param name
+		 * @param description
+		 * @param quantity
+		 * @param itemNumber
+		 * @param price
+		 * @param type
+		 * @param range
+		 * @param damage
+		 * @param levelReq
+		 * 
+		 * Overloaded constructor initializes new Weapon object with passed parameters to super() and own
+		 * attributes type, range, damage, and levelRequirement
+		 */
 		public Weapon(String name, String description, int quantity, int itemNumber, double price, String type, double range, double damage, int levelReq) {
 			super(name, description, quantity, itemNumber, price);
 			
@@ -33,32 +55,70 @@ public class Weapon extends SalableProduct{
 			this._damage = damage;
 			this._levelRequirement = levelReq;
 		}
-		//type is something like sword, gun, staff, etc.
+
+
+		/**
+		 * @return the _type
+		 */
 		public String get_type() {
 			return _type;
 		}
+
+
+		/**
+		 * @param _type the _type to set
+		 */
 		public void set_type(String _type) {
 			this._type = _type;
 		}
+
+
+		/**
+		 * @return the _range
+		 */
 		public double get_range() {
 			return _range;
 		}
+
+
+		/**
+		 * @param _range the _range to set
+		 */
 		public void set_range(double _range) {
 			this._range = _range;
 		}
+
+
+		/**
+		 * @return the _damage
+		 */
 		public double get_damage() {
 			return _damage;
 		}
+
+
+		/**
+		 * @param _damage the _damage to set
+		 */
 		public void set_damage(double _damage) {
 			this._damage = _damage;
 		}
+
+
+		/**
+		 * @return the _levelRequirement
+		 */
 		public int get_levelRequirement() {
 			return _levelRequirement;
 		}
+
+
+		/**
+		 * @param _levelRequirement the _levelRequirement to set
+		 */
 		public void set_levelRequirement(int _levelRequirement) {
 			this._levelRequirement = _levelRequirement;
 		}
-		
 		
 		
 		
