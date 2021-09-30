@@ -11,7 +11,7 @@ package store;
  */
 
 
-public class Weapon extends SalableProduct{
+public class Weapon extends SalableProduct implements Comparable{
 	
 		private String _type;// long, medium, short range, or magic
 		private double _range;// magic has unlimited, long is 0 to 1000, medium is 0 to 500, close is 0 to 10.
@@ -118,6 +118,26 @@ public class Weapon extends SalableProduct{
 		 */
 		public void set_levelRequirement(int _levelRequirement) {
 			this._levelRequirement = _levelRequirement;
+		}
+		
+		
+
+		/**
+		 * toString() method calls the super.toString() to print it's inherited attributes
+		 */
+		@Override
+		public String toString() {
+			return super.toString() + "Item Type: Weapon (" + _type + "). Range: " + _range + " Damage: " + _damage + ". Level Requirement: " + _levelRequirement;
+		}
+
+
+		/**
+		 * The compareTo Method added through implementing the Comparable interface
+		 */
+		@Override
+		public int compareTo(Object o) {
+			// TODO Auto-generated method stub
+			return 0;
 		}
 		
 		

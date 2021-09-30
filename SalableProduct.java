@@ -134,6 +134,17 @@ public class SalableProduct {
 	public void set_quantityHolder(int _quantityHolder) {
 		this._quantityHolder = _quantityHolder;
 	}
+
+
+	/**
+	 * To string, is called by it's children classes
+	 */
+	@Override
+	public String toString() {
+		return "Itm #: " + _itemNumber + ". Item name: " + _name + ". Qty: " + _quantity + ". Price: " + _price;
+
+	}
+	
 	
 	
 }//SalableProduct Class

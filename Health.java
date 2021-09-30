@@ -69,6 +69,16 @@ public class Health extends SalableProduct{
 	public void set_healthCapacity(double _healthCapacity) {
 		this._healthCapacity = _healthCapacity;
 	}
+
+	/**
+	 * toString fro health, calls super toString.
+	 */
+	@Override
+	public String toString() {
+		return super.toString() + ". Item Type: Health (" + _type + "). HealthCapacity: " + _healthCapacity;
+	}
+	
+	
 	
 	
 }//Health Class

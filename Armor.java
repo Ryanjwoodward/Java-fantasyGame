@@ -89,6 +89,14 @@ public class Armor extends SalableProduct{
 	public void set_weight(double _weight) {
 		this._weight = _weight;
 	}
+
+	/**
+	 * tostring, calls super.toString()
+	 */
+	@Override
+	public String toString() {
+		return  super.toString() + "Item Type: Armor (" + _type + "). protectionRating: " + _protectionRating + ". Weight: " + _weight;
+	}
 	
 	
 	
