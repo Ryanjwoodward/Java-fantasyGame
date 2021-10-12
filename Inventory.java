@@ -1,29 +1,19 @@
-//Notes
+//NOTES:
 
 package store;
+
+import java.util.ArrayList;
 
 /**
  * @author Ryan Woodward
  *
- * Class: CST-239
+ *         Date: 10-5-2021 Class: CST-239 Description:
  */
-
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Inventory {
 
-	// -----------------------------------------------------------------------------------------
-	// ATTRIBUTES
-	// -----------------------------------------------------------------------------------------
-
 	private ArrayList<SalableProduct> _inventory;
-	private int _inventoryIndexCounter = 0;
-	private Scanner scan = new Scanner(System.in);
-
-	// ----------------------------------------------------------------------------------------
-	// CONSTRUCTORS
-	// ----------------------------------------------------------------------------------------
+	private int _trueSize; // trueSize is the actual number of items that are contained within the
+							// ArrayList
 
 	/**
 	 * Default Constructor creates a new Inventory object (ArrayList) with size of
@@ -47,439 +37,126 @@ public class Inventory {
 		this._inventory = new ArrayList<SalableProduct>(sizeOfInventory);
 	}
 
-	// -----------------------------------------------------------------------------------------
-	// GETTERS and SETTERS
-	// -----------------------------------------------------------------------------------------
 	/**
 	 * 
-	 * @param index
-	 * @param quantity set item quantity based upon the items location(index) in the
-	 *                 arrayList
+	 * @param itemNumber
+	 * @return the idx of the item with the pass itemNumber parameter this should be
+	 *         call from get the name or any attribute from an item.
 	 */
-	public void setItemQuantity(int index, int quantity) {
+	public int getItemIdxFromItemNumber(int itemNumber) {
+		int idx = 0;
 
-		this._inventory.get(index).set_quantity(quantity);
+		for (SalableProduct item : _inventory) {
+
+			if (itemNumber == item.get_itemNumber())
+				return idx;
+
+			idx++;
+		}
+
+		System.out.println("ERROR: getItemIdxFromItemNumber()...");
+		return 0;
 	}
 
 	/**
 	 * 
-	 * @param index
-	 * @return
-	 * 
-	 *         return the item name based upon the passed index (location of item in
-	 *         the arrayList)
-	 */
-	public String getItemName(int index) {
-
-		return this.getItem(index).get_name();
-
-	}
-
-	/**
-	 * 
-	 * @param index
-	 * @return
-	 * 
-	 *         this method is used to return the item at the specified index. best
-	 *         used with the findIndex() method which locates an the index with the
-	 *         specifies itemNumber.
-	 */
-	public SalableProduct getItem(int index) {
-
-		return _inventory.get(index);
-	}
-
-	/**
-	 * 
-	 * @param index
-	 * @return
-	 * 
-	 *         this method will return the quantity of an item but the index of the
-	 *         item (not itemNumber) must be passed
-	 */
-	public int getItemQuantity(int index) {
-
-		return this.getItem(index).get_quantity();
-	}
-
-	/**
-	 * 
-	 * @param index
-	 * @return
-	 * 
-	 *         this method will return the quantity of an item but the index of the
-	 *         item (not itemNumber) must be passed the quantityHolder attribute is
-	 *         maintained like the quantity.
-	 */
-	public int getQuantityHolder(int index) {
-
-		return this.getItem(index).get_quantityHolder();
-	}
-
-	/**
-	 * 
-	 * @param index
-	 * @param newQuantity
-	 * 
-	 *                    This method is called to adjust the quantityHolder
-	 *                    attribute, it is essentially the quantity but will always
-	 *                    have the correct quantity if there are issues displaying
-	 *                    the quantity attribute.
-	 */
-	public void setQuantityHolder(int index, int newQuantity) {
-
-		this.getItem(index).set_quantityHolder(newQuantity);
-	}
-
-	/**
-	 * 
-	 * @return
-	 * 
-	 *         This method returns the actual number of non-null elements within th
-	 *         arrayList Object.
-	 */
-	public int getTrueSize() {
-
-		return this._inventoryIndexCounter;
-	}
-
-	/**
-	 * This method is not so much a setter rather an incrementer, it will incremet
-	 * the truesize by 1
-	 */
-	public void setTrueSize(int amt1) {
-		if (amt1 >= 1)
-			this._inventoryIndexCounter++;
-
-		if (amt1 <= 0)
-			this._inventoryIndexCounter--;
-
-	}
-
-	/**
-	 * 
-	 * @return
-	 * 
-	 *         This method calls the arrayList .size() method to return the length
-	 *         of the arrayList, not the actual number of items held.
+	 * @return the capacity of the inventory ArrayList, not the true qty items
+	 *         contained within it
 	 */
 	public int getSizeOfInventory() {
 
 		return _inventory.size();
 	}
 
-	// -----------------------------------------------------------------------------------------
-	// METHODS
-	// -----------------------------------------------------------------------------------------
-
 	/**
-	 * @param item
 	 * 
-	 *             This method is for when the item to work with is already created.
-	 *             It can then be add directly to the inventory by passing it to
-	 *             this method. The _inventoryIndexCounter counts the elements
-	 *             within the inventory arrayList
+	 * @param item This method will add the passed SalableProduct to the ArrayList,
+	 *             only accepts SalableProducts
 	 */
 	public void add_Item(SalableProduct item) {
 
+		this._trueSize++;
 		this._inventory.add(item);
-		this._inventoryIndexCounter++;
 	}
 
 	/**
 	 * 
-	 * @param index
-	 * 
-	 *              This method is used to remove an item from the cart or
-	 *              Ivnentory, not going to be called by itself unless the user
-	 *              wants to remove an item from the storeInventory.
+	 * @param itemNumber This method is passed an itemNumber attribute of an object
+	 *                   within the Inventory object the item index (in AList) is
+	 *                   located and used to remove the item from the ArrayList
 	 */
-	public void removeAnItem(int index) {
+	public void remove_Item(int itemNumber) {
 
-		this._inventoryIndexCounter--;
-		int idx = this.findItemIndex(index);
+		this._trueSize--;
+		int idx = getItemIdxFromItemNumber(itemNumber);
 		this._inventory.remove(idx);
 	}
 
 	/**
-	 * This method can be called to remove all items from an inventory.
+	 * This method is called to remove all items from the Inventroy ArrayList Object
 	 */
-	public void removeAllItems() {
+	public void clearInventory() {
 
-		this._inventoryIndexCounter = 0;
-
+		this._trueSize = 0;
 		this._inventory.clear();
 	}
 
+
 	/**
-	 * 
-	 * @param itemNum
-	 * @return
-	 * 
-	 *         this method searches the arrayList object and returns the index of
-	 *         the item matched by item number.
+	 * @param index
+	 * @return this method returns the item as the pass index
 	 */
-	public int findItemIndex(int itemNum) {
+	public SalableProduct getItemWithIndex(int index) {
 
-		for (int idx = 0; idx < this.getTrueSize(); idx++) {
-
-			if (itemNum == _inventory.get(idx).get_itemNumber()) {
-
-				return idx;
-			}
-		}
-
-		System.out.print("\n\tERROR: There is no item with that Item Number.");
-		return -1;
+		return _inventory.get(index);
 	}
 
 	/**
-	 * This method is called is the user wants to create a new SalableProduct Object
-	 * (Including Child classes) to add to the store inventory.
+	 * @param itemNumber This method determines the item based on the passed item
+	 *                   number then returns that item requested from the inventory
+	 * @return
 	 */
-	public void createThenAddItem() {
+	public SalableProduct getItemWithItemNumber(int itemNumber) {
 
-		int userSelect = 0, itmQuanty = 0, itmNumr = 0, itmLvl = 0;
-		String itmName = "", itmDescr = "", itmType = "";
-		double itmPrc = 0, itmRange = 0, itmDmg = 0;
+		int idx = getItemIdxFromItemNumber(itemNumber);
 
-		// 'itmLvl' is 'levelRequirement' in Weapon and 'protectionRating' in Armor
-		// 'itmRange' is 'range' in Weapon and 'HealthCap' in Health and 'Weight' in
-		// Armor
+		return _inventory.get(idx);
+	}
 
-		SalableProduct newItem;
-
-		do {
-			System.out.print("\n\t     Create and Add an Item\n\t----------------------------");
-			System.out.print(
-					"\n\t Do you want to create a: \n\t    1.) Weapon\n\t    2.) Health\n\t    3.) Armor\n\t    4.) Misc. ");
-			userSelect = scan.nextInt();
-
-			if (userSelect > 0 && userSelect < 5) {
-
-				System.out.print("\n\t Enter the 'name' of the item: ");
-				itmName = scan.next();
-
-				System.out.print("\n\t Enter a brief 'description' of the item: ");
-				itmDescr = scan.next();
-
-				System.out.print("\n\t Enter the 'quantity' of the item: ");
-				itmQuanty = scan.nextInt();
-
-				System.out.print("\n\t Enter the 'item number'(Only first 4 digits): ");
-				itmNumr = scan.nextInt();
-
-				System.out.print("\n\t Enter the 'price' of the item: ");
-				itmPrc = scan.nextDouble();
-			}
-
-			switch (userSelect) {
-
-			case 1:// weapon
-
-				System.out.print(
-						"\n\t Is the weapon:\n\t    1.) Long Range\n\t    2.) Medium range\n\t    3.) Close Range\n\t    4.) Magic");
-				userSelect = scan.nextInt();
-
-				if (userSelect < 0 || userSelect > 4) {
-					System.out.print("\n\t ERROR: Invalid value entered... Restarting...");
-					userSelect = 0;
-
-				} else {
-
-					if (userSelect == 1) {
-						itmType = "Long-Range";
-						itmRange = 1000;
-
-					}
-
-					if (userSelect == 2) {
-						itmType = "Medium-Range";
-						itmRange = 500;
-					}
-
-					if (userSelect == 3) {
-						itmRange = 10;
-						itmType = "Close-Range";
-					}
-
-					if (userSelect == 4) {
-						itmRange = 100000;
-						itmType = "Magic";
-					}
-				}
-
-				System.out.print("\n\t What is the damage cap on this weapon?");
-				itmDmg = scan.nextDouble();
-
-				if (itmDmg < 0) {
-
-					System.out.print("\n\t ERROR: Invalid value entered... Restarting...");
-					userSelect = 0;
-				} else {
-
-					if (itmDmg > 100) {
-
-						itmLvl = 10;
-					} else if (itmDmg < 100 && itmDmg > 50) {
-
-						itmLvl = 5;
-					} else if (itmDmg < 50) {
-
-						itmLvl = 0;
-					}
-
-					newItem = new Weapon(itmName, itmDescr, itmQuanty, itmNumr, itmPrc, itmType, itmRange, itmDmg,
-							itmLvl);
-					this.add_Item(newItem);
-
-				}
-
-				break;
-
-			case 2:// health
-
-				System.out.println("\n\t Is the health type:\n\t    1.) Potion\n\t    2.) Food\n\t    3.) Med-Kit");
-				userSelect = scan.nextInt();
-
-				if (userSelect < 0 || userSelect > 4) {
-					System.out.print("\n\t ERROR: Invalid value entered... Restarting...");
-					userSelect = 0;
-
-				} else {
-
-					if (userSelect == 1)
-						itmType = "Potion";
-
-					if (userSelect == 2)
-						itmType = "Food";
-
-					if (userSelect == 3)
-						itmType = "Med-Kit";
-
-					System.out.print("\n\t What is the health cap of this item: ");
-					itmRange = scan.nextDouble();
-
-					if (itmRange < 0 || itmRange > 1000) {
-
-						System.out.print("\n\t ERROR: Invalid value entered... Restarting...");
-						userSelect = 0;
-					} else {
-
-						newItem = new Health(itmName, itmDescr, itmQuanty, itmNumr, itmPrc, itmType, itmRange);
-						this.add_Item(newItem);
-
-					}
-				}
-
-				break;
-
-			case 3:// armor
-
-				System.out.println(
-						"\n\t Is the armor type:\n\t    1.) Light\n\t    2.) Heavy\n\t    3.) Medium\n\t    4.)Other");
-				userSelect = scan.nextInt();
-
-				if (userSelect < 0 || userSelect > 4) {
-					System.out.print("\n\t ERROR: Invalid value entered... Restarting...");
-					userSelect = 0;
-
-				} else {
-
-					if (userSelect == 1) {
-						itmType = "Light";
-						itmLvl = 2;
-					}
-
-					if (userSelect == 2) {
-						itmType = "Heavy";
-						itmLvl = 4;
-					}
-
-					if (userSelect == 3) {
-						itmType = "Medium";
-						itmLvl = 3;
-					}
-
-					if (userSelect == 4) {
-						itmType = "Other";
-						itmLvl = 1;
-					}
-
-					System.out.print("\n\t What is the weight of this armor: ");
-					itmRange = scan.nextDouble();
-
-					if (itmRange < 0 || itmRange > 300) {
-
-						System.out.print("\n\t ERROR: Invalid value entered... Restarting...");
-						userSelect = 0;
-					} else {
-
-						newItem = new Armor(itmName, itmDescr, itmQuanty, itmNumr, itmPrc, itmType, itmLvl, itmRange);
-						this.add_Item(newItem);
-
-					}
-				}
-
-				break;
-
-			case 4:// misc
-
-				newItem = new SalableProduct(itmName, itmDescr, itmQuanty, itmNumr, itmPrc);
-				this.add_Item(newItem);
-
-				break;
-
-			default:
-
-				System.out.print("\n\t ERROR: Invalid value entered... Restarting...");
-				userSelect = 0;
-			}
-
-		} while (userSelect == 0);
-
-	}// createThenAddItem method -End
-
-	
-
-	
-	// ------------------------------------------------------------------
-	// TO STRING
-	// ------------------------------------------------------------------
 	/**
-	 * 
-	 * @param invt
-	 * 
-	 *             This toString method is designed for the storeFront's inventory.
-	 *             it will print to correct quantities post adding and removing
+	 * @param invt this toString() is used to print the inventory arrayList object
 	 */
 	public void toString(Inventory invt) {
 
-		for (int count = 0; count < invt.getTrueSize(); count++) {
-			// System.out.println("INVENTORY-----index: " + count + " QUANTHolder: " +
-			// invt.getQuantityHolder(count));
+		for (int idx = 0; idx < this.get_trueSize(); idx++)
 
-			System.out.print("\t" + (count + 1) + ".) " + invt.getItemName(count) + ": "
-					+ invt.getItem(count).get_description() + ". Qty: " + invt.getQuantityHolder(count) + ". Price: "
-					+ invt.getItem(count).get_price() + "\n");
-		}
+			System.out.println(invt._inventory.get(idx));
+	}
+
+	
+	/**
+	 * A method for sorting ArrayLists.
+	 */
+	public static void sort(ArrayList<SalableProduct> list){
+        list.sort((itm1, itm2) -> itm1.get_name().compareTo(itm2.get_name()));
+  
+	}
+	
+	
+	/**
+	 * @return the _inventory
+	 */
+	public ArrayList<SalableProduct> get_inventory() {
+		return _inventory;
 	}
 
 	/**
-	 * 
-	 * @param invt
-	 * 
-	 *             This method is used to print the Inventory object passed, all the
-	 *             elements within the arrayList will be displayed
+	 * @return the _trueSize The true size attribute is not the .size() this
+	 *         attribute refers to number of items within the Inventory arrayList
 	 */
-	public void toString(ShoppingCart invt) {
-
-		for (int count = 0; count < invt.getTrueSize(); count++) {
-
-			System.out.print("\t" + (count + 1) + ".) " + invt.getItemName(count) + ": "
-					+ invt.getItem(count).get_description() + ". Qty: " + invt.getItemQuantity(count) + ". Price: "
-					+ invt.getItem(count).get_price() + "\n");
-		}
+	public int get_trueSize() {
+		return _trueSize;
 	}
 
+	
 }// Inventory Class

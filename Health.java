@@ -3,66 +3,49 @@ package store;
 /**
  * @author Ryan Woodward
  *
- * Class: CST-239
- * Description: Health class is a child class to the SalableProduct. Thhis class add items to restore a characters health
- * Type: potion, food, of med-pack. HealthCappacity: is how much health the item can restore.
+ *         Date: 10-5-2021 Class: CST-239 Description:
  */
+public class Health extends SalableProduct implements Comparable<SalableProduct> {
 
-public class Health extends SalableProduct{
-
-	private String _type;//potion food, med pack
 	private double _healthCapacity;
-	
-	
+
 	/**
-	 * Default constructor uses default values from super() and its own attributes
+	 * Default constructor initializes attributes with default values
 	 */
 	public Health() {
+
 		super();
-		
-		this._type = "none";
 		this._healthCapacity = 0.0;
 	}
-	
+
 	/**
-	 * 
-	 * @param name
-	 * @param description
-	 * @param quantity
-	 * @param itemNumber
-	 * @param price
-	 * @param type
-	 * @param healthCap
-	 * 
-	 * This overloaded constructore calls the SalableProduct overloaded constructor, and uses passed parameters
-	 * type and healthCapacity to initialize it's own attributes
+	 * @param _name
+	 * @param _description
+	 * @param _quantity
+	 * @param _itemNumber
+	 * @param _price
 	 */
-	public Health(String name, String description, int quantity, int itemNumber, double price, String type, double healthCap) {
-		super(name, description, quantity, itemNumber, price);
-		
-		this._type = type;
+	public Health(String _name, String _description, int _quantity, int _itemNumber, double _price, double healthCap) {
+		super(_name, _description, _quantity, _itemNumber, _price);
+
 		this._healthCapacity = healthCap;
 	}
-	
-	
+
 	/**
-	 * @return the _type
+	 * @param hlth Health class' Copy Constructor;
 	 */
-	public String get_type() {
-		return _type;
+	public Health(Health hlth) {
+		this(hlth.get_name(), hlth.get_description(), hlth.get_quantity(), hlth.get_itemNumber(), hlth.get_price(),
+				hlth._healthCapacity);
 	}
-	/**
-	 * @param _type the _type to set
-	 */
-	public void set_type(String _type) {
-		this._type = _type;
-	}
+
 	/**
 	 * @return the _healthCapacity
 	 */
 	public double get_healthCapacity() {
 		return _healthCapacity;
 	}
+
 	/**
 	 * @param _healthCapacity the _healthCapacity to set
 	 */
@@ -70,15 +53,19 @@ public class Health extends SalableProduct{
 		this._healthCapacity = _healthCapacity;
 	}
 
-	/**
-	 * toString fro health, calls super toString.
-	 */
 	@Override
+	/**
+	 * General toString()
+	 */
 	public String toString() {
-		return super.toString() + ". Item Type: Health (" + _type + "). HealthCapacity: " + _healthCapacity;
+		return "[Health]..." + super.toString() + "Health Capacity: " + _healthCapacity;
 	}
-	
-	
-	
-	
-}//Health Class
+
+	/**
+	 *CompareTo method to compare two Healh Objects by Name.
+	 */
+	public int compareTo(SalableProduct product) {
+		return this.get_name().compareToIgnoreCase(product.get_name());
+	}
+
+}// Health Class

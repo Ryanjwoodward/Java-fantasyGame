@@ -3,33 +3,27 @@ package store;
 /**
  * @author Ryan Woodward
  *
- * Date: 9-15-2021
- * Class: SalableProduct Class, it the Object that fills the Inventory Class' ArrayList. Parent Class to Armor, Health, and weapon
+ *         Date: 10-5-2021 Class: CST-239 Description:
  */
+public abstract class SalableProduct {
 
-public class SalableProduct {
-	
 	private String _name;
 	private String _description;
 	private int _quantity;
 	private int _itemNumber;
-	private double _price;
-	private int _quantityHolder;
+	private double _price;							
 
-	
-	
 	/**
-	 * Default Constructor initiates the attributes with default values
+	 * Default Constructor initializes attributes with default values
 	 */
 	public SalableProduct() {
-		
-		this._name = "default";
-		this._description = "none";
-		this._quantity = 0;
-		this._itemNumber = 0000;
-		this._price = 0.0;
+
+		_name = "name";
+		_description = "descr";
+		_quantity = 0;
+		_itemNumber = 0;
+		_price = 0.0;
 	}
-	
 
 	/**
 	 * @param _name
@@ -37,18 +31,14 @@ public class SalableProduct {
 	 * @param _quantity
 	 * @param _itemNumber
 	 * @param _price
-	 *
-	 *Non-default constructor initiates the attributes of a new SalableProduct object with passed parameters
-	 *The quantity holder is the same as quantity.
 	 */
 	public SalableProduct(String _name, String _description, int _quantity, int _itemNumber, double _price) {
-		
+		super();
 		this._name = _name;
 		this._description = _description;
 		this._quantity = _quantity;
 		this._itemNumber = _itemNumber;
 		this._price = _price;
-		this._quantityHolder = _quantity;
 	}
 
 	/**
@@ -121,30 +111,13 @@ public class SalableProduct {
 		this._price = _price;
 	}
 
-	/**
-	 * @return the _quantityHolder
-	 */
-	public int get_quantityHolder() {
-		return _quantityHolder;
-	}
-
-	/**
-	 * @param _quantityHolder the _quantityHolder to set
-	 */
-	public void set_quantityHolder(int _quantityHolder) {
-		this._quantityHolder = _quantityHolder;
-	}
-
-
-	/**
-	 * To string, is called by it's children classes
-	 */
 	@Override
+	/**
+	 * This is the general toString().
+	 */
 	public String toString() {
-		return "Itm #: " + _itemNumber + ". Item name: " + _name + ". Qty: " + _quantity + ". Price: " + _price;
-
+		return "Item name: " + _name + "...Decrip: " + _description + "...Qty: " + _quantity + "...Item #: "
+				+ _itemNumber + "...Price: " + _price + "...";
 	}
-	
-	
-	
-}//SalableProduct Class
+
+}// SalableProduct Abstract Class

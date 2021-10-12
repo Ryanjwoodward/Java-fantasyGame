@@ -1,79 +1,46 @@
 package store;
 
- /**
+/**
  * @author Ryan Woodward
  *
- * Date: 9/20/2021
- * Class: CST-239
- * Description: Armor class is a child class to the SalableProduct. This adds armor qualities to the product. 
- * Type: Light, Medium, Heavy, Clothing. Protection Rating (defensive point value to deduct form damage). Weight is how heavy the armor piece is.
+ *         Date: 10-5-2021 Class: CST-239 Description:
  */
+public class Armor extends SalableProduct implements Comparable<SalableProduct>{
 
-public class Armor extends SalableProduct{
-	
-	private String _type; //light, medium, heavy or clothing
-	private int _protectionRating;
-	private double _weight;
-	
+	private double _weight; // This attribute refers to the type of armor, not just the wiehgt. (Light, medium, heavy)
+	private double _protectionRating; // This attribute refers to the amount of damage deducted from an attack.
+
 	/**
-	 * Default constructor uses default values from super() and its own attributes
+	 * Default Constructor initializes attributes with default values
 	 */
 	public Armor() {
 		super();
-		
-		this._type = "none";
 		this._protectionRating = 0;
 		this._weight = 0.0;
 	}
-	
+
 	/**
-	 * 
-	 * @param name  this is the name of the Armor piece (from SalableProduct)
-	 * @param description this is the description of the product (from SalableProduct)
-	 * @param quantity this is the quantity of the item (from SalableProduct)
-	 * @param itemNumber this is the item number (from SalableProduct)
-	 * @param price the price of the item (from SalableProduct)
-	 * @param type unique to Armor
-	 * @param protectRate (unique to Armor)
-	 * @param weight (unique to Armor0
-	 * 
-	 * Non-default constructor initializes attributes with super() and with passed parameters type
-	 * protectionrating, and weight
+	 * @param _name
+	 * @param _description
+	 * @param _quantity
+	 * @param _itemNumber
+	 * @param _price
 	 */
-	public Armor(String name, String description, int quantity, int itemNumber, double price, String type, int protectRate, double weight) {
-		super(name, description, quantity, itemNumber, price);
-		
-		this._type = type;
+	public Armor(String _name, String _description, int _quantity, int _itemNumber, double _price, double protectRate,
+			double weight) {
+		super(_name, _description, _quantity, _itemNumber, _price);
+
 		this._protectionRating = protectRate;
 		this._weight = weight;
 	}
 
 	/**
-	 * @return the _type
+	 * @param armr This is a copy constructor.
 	 */
-	public String get_type() {
-		return _type;
-	}
+	public Armor(Armor armr) {
 
-	/**
-	 * @param _type the _type to set
-	 */
-	public void set_type(String _type) {
-		this._type = _type;
-	}
-
-	/**
-	 * @return the _protectionRating
-	 */
-	public int get_protectionRating() {
-		return _protectionRating;
-	}
-
-	/**
-	 * @param _protectionRating the _protectionRating to set
-	 */
-	public void set_protectionRating(int _protectionRating) {
-		this._protectionRating = _protectionRating;
+		this(armr.get_name(), armr.get_description(), armr.get_quantity(), armr.get_itemNumber(), armr.get_price(),
+				armr._protectionRating, armr._weight);
 	}
 
 	/**
@@ -91,15 +58,33 @@ public class Armor extends SalableProduct{
 	}
 
 	/**
-	 * tostring, calls super.toString()
+	 * @return the _protectionRating
 	 */
+	public double get_protectionRating() {
+		return _protectionRating;
+	}
+
+	/**
+	 * @param _protectionRating the _protectionRating to set
+	 */
+	public void set_protectionRating(double _protectionRating) {
+		this._protectionRating = _protectionRating;
+	}
+
 	@Override
+	/**
+	 * This is the general toString() Will call the super.invtToString if calling
+	 * object is Inventory.
+	 */
 	public String toString() {
-		return  super.toString() + "Item Type: Armor (" + _type + "). protectionRating: " + _protectionRating + ". Weight: " + _weight;
+		return "[Armor]..." + super.toString() + "weight: " + _weight + "...Protection Rating: " + _protectionRating;
 	}
 	
-	
-	
-	
-
-}//Armor Class
+	/**
+	 *CompareTo method to compare two Armor Objects by Name.
+	 */
+	public int compareTo(SalableProduct product) {
+		return this.get_name().compareToIgnoreCase(product.get_name());
+	}
+		 
+}// Armor Class
