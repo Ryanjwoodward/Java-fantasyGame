@@ -26,12 +26,13 @@ public class StoreDriver {
 	public static void main(String[] args) {
 		
 		mainMenu();
-		printState();
-
-	}
+	}//main method
 	
+/**
+ * The mainMenu() is the how the user interacts with the storefront, shoppingcart, and inventory classes
+ */
 public static void mainMenu() {
-	
+	/*
 	Armor item1 = new Armor("Daedric Armor", "Daedric Plate Armor", 1, 1010, 10.00, 600.0, 50.0);
 	Armor item2 = new Armor("Stahlrim Armor", "Stahlrim Plate Armor", 1, 1020, 20.00, 400.0, 30.0);
 	Health item3 = new Health("Health Potion", "Minor Potion", 20, 1030, 20.0, 50.0);
@@ -45,7 +46,7 @@ public static void mainMenu() {
 	 myStore.get_storeInventory().add_Item(item4);
 	 myStore.get_storeInventory().add_Item(item5);
 	 myStore.get_storeInventory().add_Item(item6);
-	 
+	 */
 		
 		boolean mainRunner = true;
 		int userEntered_ItemNumber = 0, userEntered_Qty = 0;
@@ -66,7 +67,7 @@ public static void mainMenu() {
 			case 1://Display Store Inventory
 				
 				System.out.println("\t\t" + myStore.get_storeName() +" Store Inventory\n\t-------------------------------------------------------------------------");
-				myStore.get_storeInventory().toString(myStore.get_storeInventory());
+				myStore.storeToString();
 				
 				break;
 				
@@ -87,7 +88,7 @@ public static void mainMenu() {
 				userEntered_Qty = scan.nextInt();
 				
 				//Gets the item based upon the entered item number and store it in prd
-				prd = myStore.get_storeInventory().getItemWithItemNumber(userEntered_ItemNumber);
+				prd = myStore.getItemFromStoreInventory(userEntered_ItemNumber);
 				
 				//Error Checking: item number must be between 0 and 9999 and the requested Qty cannot be greater than available
 				if(userEntered_ItemNumber < 0 || userEntered_ItemNumber > 9999 || prd.get_quantity() < userEntered_Qty ) {
@@ -157,7 +158,7 @@ public static void mainMenu() {
 				
 			//----------------------------------------------------------------------------------------------------------------------------	
 			//----------------------------------------------------------------------------------------------------------------------------		
-			case 5://Clear the cart //Removes all the items in the cart but is not yet supporting the proper QTY in the inventory
+			case 5://Clear the cart 
 				
 				System.out.print("\n\t Clearing your Shopping Cart...");
 				
@@ -167,7 +168,7 @@ public static void mainMenu() {
 					prd = myCart.getItemWithIndex(idx);
 					itmNumb = prd.get_itemNumber();
 					
-					prd2 = myStore.get_storeInventory().getItemWithItemNumber(itmNumb);
+					prd2 = myStore.getItemFromStoreInventory(itmNumb);
 					itmNumb = prd2.get_quantity();
 					
 					prd2.set_quantity((itmNumb + prd.get_quantity()));
@@ -182,7 +183,7 @@ public static void mainMenu() {
 			case 6:// Sort the Inventory by alphabet
 				
 				//Calls the sort method below t sort all the items by Name.
-				myStore.get_storeInventory().sort(myStore.get_storeInventory().get_inventory());
+				//myStore.get_storeInventory().sort(myStore.get_storeInventory().get_inventory());
 
 				break;
 				
@@ -225,7 +226,7 @@ public static void mainMenu() {
 						newDmg = scan.nextDouble();
 		
 						Weapon woopin = new Weapon(newName, newDescr, newQuant, newItmNum, newPrice, newRange, newDmg);
-						myStore.get_storeInventory().add_Item(woopin);
+						myStore.addItemToStore(woopin);
 						
 						break;
 						
@@ -237,7 +238,7 @@ public static void mainMenu() {
 						newWeight = scan.nextDouble();
 						
 						Armor armour = new Armor(newName, newDescr, newQuant, newItmNum, newPrice, newPrtctRate, newWeight);
-						myStore.get_storeInventory().add_Item(armour);
+						myStore.addItemToStore(armour);
 						
 						break;
 						
@@ -247,7 +248,7 @@ public static void mainMenu() {
 						newHealthCap = scan.nextDouble();
 						
 						Health help = new Health(newName, newDescr, newQuant, newItmNum, newPrice, newHealthCap);
-						myStore.get_storeInventory().add_Item(help);
+						myStore.addItemToStore(help);
 						break;
 						
 					default:
@@ -275,20 +276,7 @@ public static void mainMenu() {
 			
 		}while(mainRunner);
 	}
-	
-	
-	
-	public static void printState() {
-		
-		System.out.print("\n\tHere is the states \n \n\t   INVENTORY:\n-----------------------------------\n");
-		
-		myStore.get_storeInventory().toString(myStore.get_storeInventory());
-		
-		System.out.println("\n\t   CART\n\t------------------------------------------------");
-		myCart.cartToString(myCart);
-	}
 
-	
-	
+		
 	
 }//StoreDriver Class

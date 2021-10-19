@@ -1,5 +1,9 @@
 //NOTES:
 
+//1.) add an adjust quantity method.
+//2.) if the user adds an item then wants to add the same item again havea method that works to adjust quantity rather than
+//		just simpply adding it again
+
 package store;
 
 import java.util.ArrayList;
@@ -59,8 +63,6 @@ public class ShoppingCart {
 		this._shoppingCart.remove(idx);
 	}
 	
-	
-
 	/**
 	 * 
 	 * @param itemNumber
@@ -135,13 +137,3 @@ public class ShoppingCart {
 	
 
 }// ShoppingCart
-
-/*
-//OLD CODE:
-
-public void removePartial(int itemNumber, int qtyTaken) {
-	
-	int idx = getItemIdxFromItemNumber(itemNumber);
-	this._shoppingCart.get(idx).set_quantity(((this._shoppingCart.get(idx).get_quantity())- qtyTaken));
-}
-*/

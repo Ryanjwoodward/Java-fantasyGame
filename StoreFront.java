@@ -1,6 +1,7 @@
 //NOTES:
 
 //1.) get better at commit daily changes to Github
+//2.) remove the store return inventory.
 package store;
 
 /**
@@ -47,12 +48,30 @@ public class StoreFront {
 	public void set_storeName(String _storeName) {
 		this._storeName = _storeName;
 	}
-
+	
+	//Store Related Inventory Operations
+	
 	/**
-	 * @return the _storeInventory
+	 * This toString is called by the StoreFront to print the storefront's inventory.
 	 */
-	public Inventory get_storeInventory() {
-		return _storeInventory;
+	public void storeToString() {
+		
+		_storeInventory.toString(_storeInventory);
+	}
+	
+	/**
+	 * 
+	 * @param itemNumber passed to Inventory method to obtain an item
+	 * @return the item from the inventory method to the method call
+	 */
+	public SalableProduct getItemFromStoreInventory(int itemNumber) {
+		
+		return _storeInventory.getItemWithItemNumber(itemNumber);
+	}
+	
+	public void addItemToStore(SalableProduct product) {
+		
+		_storeInventory.add_Item(product);
 	}
 
 }//StoreFront Class

@@ -142,14 +142,6 @@ public class Inventory {
   
 	}
 	
-	
-	/**
-	 * @return the _inventory
-	 */
-	public ArrayList<SalableProduct> get_inventory() {
-		return _inventory;
-	}
-
 	/**
 	 * @return the _trueSize The true size attribute is not the .size() this
 	 *         attribute refers to number of items within the Inventory arrayList
@@ -157,6 +149,5 @@ public class Inventory {
 	public int get_trueSize() {
 		return _trueSize;
 	}
-
-	
+		
 }// Inventory Class
